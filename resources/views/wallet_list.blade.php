@@ -8,13 +8,10 @@
     <title>Document</title>
 </head>
 <body>
-<form method="post" action="/logout">
-    @csrf
-    <button>logout</button>
-</form>
 <ul>
-    <li><a href="{{route('wallets.create')}}">Create wallet</a></li>
-    <li><a href="{{route('wallets.index')}}">List of wallets</a></li>
+@foreach($wallets as $wallet)
+        <li>{{$wallet->name}}</li>
+@endforeach
 </ul>
 </body>
 </html>

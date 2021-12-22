@@ -8,13 +8,11 @@
     <title>Document</title>
 </head>
 <body>
-<form method="post" action="/logout">
+<form method="post" action="{{route('wallets.store')}}">
     @csrf
-    <button>logout</button>
+    <label for="name">Wallet name</label>
+    <input name="name">
+    <button>Create Wallet</button>
 </form>
-<ul>
-    <li><a href="{{route('wallets.create')}}">Create wallet</a></li>
-    <li><a href="{{route('wallets.index')}}">List of wallets</a></li>
-</ul>
 </body>
 </html>
