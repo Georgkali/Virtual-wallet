@@ -8,10 +8,8 @@
     <title>Document</title>
 </head>
 <body>
-<ul>
-@foreach($wallets as $wallet)
-        <li><a href="{{route('wallets.show', $wallet)}}">{{$wallet->name}}</a></li>
-@endforeach
-</ul>
+
+<a href="{{route('wallets.edit', $wallet)}}">{{$wallet->name}}</a>
+
 </body>
 </html>

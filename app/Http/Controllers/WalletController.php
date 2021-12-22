@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Wallet;
 use Illuminate\Http\Request;
+use function Symfony\Bridge\Twig\Extension\twig_is_selected_choice;
 
 class WalletController extends Controller
 {
@@ -20,7 +21,6 @@ class WalletController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -43,6 +43,7 @@ class WalletController extends Controller
             'name' => $request->get('name'),
             'user_id' => auth()->id()
         ]);
+        return $this->index();
     }
 
 
@@ -50,22 +51,21 @@ class WalletController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Wallet  $wallet
-     * @return \Illuminate\Http\Response
+
      */
     public function show(Wallet $wallet)
     {
-        //
+        return view('wallet', ['wallet' => $wallet]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Wallet  $wallet
-     * @return \Illuminate\Http\Response
      */
     public function edit(Wallet $wallet)
     {
-        //
+        return view('edit_wallet', ['wallet' => $wallet]);
     }
 
     /**
@@ -77,7 +77,14 @@ class WalletController extends Controller
      */
     public function update(Request $request, Wallet $wallet)
     {
-        //
+
+        $request->validate([
+            'name' => 'required',
+        ]);
+        $wallet->update([
+            'name' => $request->get('name'),
+        ]);
+        return $this->index();
     }
 
     /**
@@ -88,6 +95,7 @@ class WalletController extends Controller
      */
     public function destroy(Wallet $wallet)
     {
-        //
+        $wallet->delete();
+        return $this->index();
     }
 }
