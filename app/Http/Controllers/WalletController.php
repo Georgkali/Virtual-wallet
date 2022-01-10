@@ -35,7 +35,9 @@ class WalletController extends Controller
 
     public function show(Wallet $wallet)
     {
-        return view('wallet', ['wallet' => $wallet]);
+        $transactions = $wallet->transactions()->get();
+
+        return view('wallet', ['wallet' => $wallet, 'transactions' => $transactions]);
     }
 
     public function edit(Wallet $wallet)

@@ -40,6 +40,7 @@ class TransactionController extends Controller
         ]);
 
         $wallet->transactions()->save($transaction);
+        return redirect()->route('wallets.show', $wallet);
 
     }
 
@@ -77,14 +78,10 @@ class TransactionController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+
+    public function destroy(Transaction $transaction)
     {
-        //
+        $transaction->delete();
+        return back();
     }
 }
