@@ -17,6 +17,6 @@ Route::middleware('auth')->group(function () {
     Route::resources(['wallets' => WalletController::class,
         'transactions' => TransactionController::class
     ]);
-
-    Route::post('transactions/{wallet}', [TransactionController::class, 'store'])->name('transactions.store_tr');
+    Route::post('transactions/{transaction}', [TransactionController::class, 'fraudulent'])->name('transactions.fraudulent');
+    Route::post('{wallet}/transactions', [TransactionController::class, 'store'])->name('transactions.store_tr');
 });

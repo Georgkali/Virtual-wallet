@@ -14,7 +14,7 @@
             <label for="value">Amount
                 <input name="value" type="number">
             </label>
-            <button>Add</button>
+            <button class="btn btn-primary">Add</button>
         </form>
     </div>
 
@@ -31,7 +31,11 @@
             </thead>
             <tbody>
             @foreach($transactions as $transaction)
+                @if($transaction->fraudulent === null)
                 <tr>
+                    @else
+                        <tr class="table-danger">
+                            @endif
                     <th scope="row">{{$transaction->type}}</th>
                     <td>{{$transaction->value}}</td>
                     <td>{{$transaction->created_at}}</td>
@@ -40,10 +44,20 @@
                               action="{{route('transactions.destroy', $transaction)}}">
                             @csrf
                             @method('delete')
-                            <button>delete</button>
+                            <button class="btn btn-primary">delete</button>
                         </form>
                     </td>
-                    <td>{{$transaction->created_at}}</td>
+                    <td>
+                        <form method="post" action="{{route('transactions.fraudulent', $transaction)}}">
+                            @csrf
+                            @method('post')
+                            @if($transaction->fraudulent === null)
+                                <input type="checkbox" onchange="submit()">
+                            @else
+                                <input type="checkbox" onchange="submit()" checked>
+                            @endif
+                        </form>
+                    </td>
                 </tr>
             @endforeach
             </tbody>

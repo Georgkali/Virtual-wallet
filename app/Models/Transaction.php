@@ -9,7 +9,11 @@ class Transaction extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['type', 'value'];
+    protected $dates = [
+        'fraudulent'
+    ];
+
+    protected $fillable = ['type', 'value', 'fraudulent'];
 
     public function wallet() {
        return $this->belongsTo(Wallet::class);
