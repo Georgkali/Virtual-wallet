@@ -8,10 +8,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::middleware('auth')->get('home', function () {
-    return view('index');
+
+Route::middleware('auth')->group(function () {
+    Route::get('home', function () {
+        return view('index');
+    })->name('home');
+
+    Route::resources(['wallets' => WalletController::class,
+        'transactions' => TransactionController::class
+    ]);
+
+    Route::post('transactions/{wallet}', [TransactionController::class, 'store'])->name('transactions.store_tr');
 });
-Route::resources(['wallets' => WalletController::class,
-    'transactions' => TransactionController::class
-]);
-Route::post('transactions/{wallet}', [TransactionController::class, 'store'])->name('transactions.store_tr');
