@@ -4,19 +4,19 @@
 #  Virtual Wallet App 
 
 
-## To run the project, do these steps:
+## To start the project, run following commands in cmd/terminal:
 
 ## Clone the repository:
 
-git clone git@github.com:Georgkali/Virtaul-wallet.git
+git clone git@github.com:Georgkali/Virtual-wallet.git
 
 ## Switch to the repo folder:
 
-cd Virtaul-wallet
+cd Virtual-wallet
 
 ## Install all the dependencies using composer:
 
-composer install
+composer update
 
 ## Copy the example env file and make the required configuration changes in the .env file:
 
@@ -26,7 +26,7 @@ cp .env.example .env
 
 php artisan key:generate
 
-## Run the database migrations (Set the database connection in .env before migrating):
+## Run the database migrations (Set the database connection in .env file before migrating):
 
 php artisan migrate
 
@@ -34,5 +34,5 @@ php artisan migrate
 
 php artisan serve
 
-## You can now access the server at http://localhost:8000
+## You can now access the app at http://localhost:8000
 
