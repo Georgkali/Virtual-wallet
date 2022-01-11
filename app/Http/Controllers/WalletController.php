@@ -3,10 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Wallet;
+use App\Services\TotalServiceInterface;
 use Illuminate\Http\Request;
 
 class WalletController extends Controller
 {
+    private TotalServiceInterface $totalService;
+    public function __construct(TotalServiceInterface $totalService)
+    {
+        $this->totalService = $totalService;
+    }
 
     public function index()
     {
@@ -36,8 +42,9 @@ class WalletController extends Controller
     public function show(Wallet $wallet)
     {
         $transactions = $wallet->transactions()->get();
-
-        return view('wallet', ['wallet' => $wallet, 'transactions' => $transactions]);
+        $incomes = $this->totalService->total($wallet, '+');
+        $outgo = $this->totalService->total($wallet, '-');
+        return view('wallet', ['wallet' => $wallet, 'transactions' => $transactions, 'incomes' => $incomes, 'outgo' => $outgo]);
     }
 
     public function edit(Wallet $wallet)
